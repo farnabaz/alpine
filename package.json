@@ -10,8 +10,8 @@
     "lint": "eslint ."
   },
   "resolutions": {
-    "@nuxt/content": "npm:@nuxt/content-edge@2.8.1-28224874.ace20a2",
-    "@nuxtjs/mdc": "npm:@nuxtjs/mdc-edge@0.1.6-28224836.61291ff"
+    "@nuxt/content": "npm:@nuxt/content-edge@latest",
+    "@nuxtjs/mdc": "npm:@nuxtjs/mdc-edge@latest"
   },
   "devDependencies": {
     "@nuxt-themes/docus": "^1.13.1",
