@@ -1,0 +1,84 @@
+## title
+
+One of the downsides of using block components in MDC is that markdown renderers (like github's) do not render the block definition and YAML props properly.
+
+**Example:**
+
+```
+::name
+---
+key: value
+tags:
+  - tag1
+  - tag2
+---
+::
+```
+
+**Result:**
+
+::name
+---
+key: value
+tags:
+  - tag1
+  - tag2
+---
+::
+
+
+
+One of the way that we can improve MDC readability in all renders is using `~~~` code block style instead of `---` fornt-mater style to define YAML props
+
+
+**Example:**
+
+```
+::name
+~~~
+key: value
+tags:
+  - tag1
+  - tag2
+~~~
+::
+```
+
+**Result:**
+
+::name
+~~~
+key: value
+tags:
+  - tag1
+  - tag2
+~~~
+::
+
+Also, it will be possible to define language for this block to highlight the props.
+
+
+
+**Example:**
+
+```
+::name
+~~~yaml
+key: value
+tags:
+  - tag1
+  - tag2
+~~~
+::
+```
+
+**Result**
+
+::name
+~~~yaml
+key: value
+tags:
+  - tag1
+  - tag2
+~~~
+::
