@@ -26,7 +26,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     defaults:
       run:
-        working-directory: docs
+        working-directory: .
 
     strategy:
       matrix:
@@ -40,7 +40,7 @@ jobs:
       - name: Identify package manager
         id: pkgman
         run: |
-          cache=`[ -f "docs/pnpm-lock.yaml" ] && echo "pnpm" || ([ -f "docs/package-lock.json" ] && echo "npm" || ([ -f "docs/yarn.lock" ] && echo "yarn" || echo ""))`
+          cache=`[ -f "./pnpm-lock.yaml" ] && echo "pnpm" || ([ -f "./package-lock.json" ] && echo "npm" || ([ -f "./yarn.lock" ] && echo "yarn" || echo ""))`
           package_manager=`[ ! -z "$cache" ] && echo "$cache" || echo "pnpm"`
           echo "cache=$cache" >> $GITHUB_OUTPUT
           echo "package_manager=$package_manager" >> $GITHUB_OUTPUT
@@ -64,13 +64,14 @@ jobs:
         run: ${{ steps.pkgman.outputs.package_manager }} add -D @nuxthq/studio
 
       - name: Create .nuxtrc
-        run: echo '\nautoImport=true\nmodules[]=@nuxthq/studio' >> .nuxtrc
+        run: echo $'\nautoImport=true\nmodules[]=@nuxthq/studio' >> .nuxtrc
 
       - name: Generate
         run: npx nuxi generate
         env:
-          NUXT_PUBLIC_STUDIO_API_URL: http://localhost:1337
-          NUXT_PUBLIC_STUDIO_TOKENS: 1384c359e269624f51f2127f77b869ecbeb3be12dfb1d3e63d6096e39eb2a36a
+          NUXT_PUBLIC_STUDIO_API_URL: https://api.nuxt.studio
+          NUXT_PUBLIC_STUDIO_TOKENS: d786f7df66db93106d51a4875b0ba1089d84689cc77c147178907efdb2263292
+
 
       - name: Add .nojekyll file
         run: touch .output/public/.nojekyll
@@ -79,4 +80,4 @@ jobs:
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: docs/.output/public
+          folder: ./.output/public
